@@ -1,0 +1,27 @@
+{
+  "name": "hopesobremesas-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Catálogo e autenticação da Hope Sobremesas",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js && node --check ../frontend/script.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.14.0",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^4.0.17"
+  },
+  "devDependencies": {
+    "prisma": "^6.14.0"
+  }
+}

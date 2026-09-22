@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#9aaa8e">
+    <title>Hope Sobremesas</title>
+    <link rel="stylesheet" href="frontend/style.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Hope Sobremesas, início">
+        <img src="frontend/assets/logo-creme-marrom.svg" alt="Hope Sobremesas">
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="#produtos">Produtos</a>
+        <a href="#como-pedir">Como pedir</a>
+      </nav>
+      <button class="account-button" id="open-auth" type="button">Entrar</button>
+      <button class="cart-button" id="open-cart" type="button">
+        Carrinho | <span id="cart-count">0</span>
+      </button>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">SOBREMESAS FEITAS COM CARINHO</p>
+          <h1>Um carinho doce em cada detalhe.</h1>
+          <p>Encomendas preparadas para tornar seus momentos ainda mais especiais.</p>
+          <a class="button" href="#produtos">Ver produtos</a>
+        </div>
+        <div
+          class="image-space hero-space"
+          aria-label="Espaço reservado para imagem principal"
+        >
+          <span>ESPAÇO PARA IMAGEM</span>
+        </div>
+      </section>
+
+      <section class="how" id="como-pedir">
+        <div>
+          <p class="eyebrow">PEDIDO SIMPLES</p>
+          <h2>Monte seu pedido</h2>
+        </div>
+        <img src="frontend/assets/logo-marrom-verde.svg" alt="Logo Hope Sobremesas">
+        <ol>
+          <li>Escolha seus produtos</li>
+          <li>Confira seu Carrinho</li>
+          <li>Finalize pelo WhatsApp</li>
+        </ol>
+      </section>
+
+      <section class="products" id="produtos">
+        <p class="eyebrow">ESCOLHA A SUA SOBREMESA</p>
+        <h2>Feitos para encantar</h2>
+        <div class="category-tabs" role="tablist" aria-label="Categorias">
+          <button class="tab active" data-category="total">Todos</button>
+          <button class="tab" data-category="categoria1">Cookies</button>
+          <button class="tab" data-category="categoria2">Brownie Supreme</button>
+          <button class="tab" data-category="categoria3">Fatia de Brownie</button>
+          <button class="tab" data-category="categoria4">Afogadinho de Brownie</button>
+          <button class="tab" data-category="categoria5">Brownie Tradicional</button>
+          <button class="tab" data-category="categoria6">Bombom de Morango</button>
+        </div>
+        <div class="product-grid" id="product-grid"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <img src="frontend/assets/logo-creme-marrom.svg" alt="Hope Sobremesas">
+        <p>Sobremesas feitas para celebrar momentos especiais.</p>
+      </div>
+      <div class="footer-contact">
+        <span class="footer-label">Atendimento</span>
+        <p>Encomendas sob consulta</p>
+      </div>
+      <a
+        class="instagram-link"
+        href="https://www.instagram.com/hopesobremesas/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Siga Hope Sobremesas no Instagram"
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle class="instagram-dot" cx="17.5" cy="6.5" r="1"></circle>
+        </svg>
+        <span>Siga-nos no Instagram</span>
+      </a>
+      <div class="footer-bottom">
+        <p>© 2026 Hope Sobremesas. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <aside class="cart" id="cart" aria-hidden="true">
+      <div class="cart-head">
+        <h2>Seu Carrinho</h2>
+        <button id="close-cart" aria-label="Fechar">×</button>
+      </div>
+      <div id="cart-items" class="cart-items">
+        <p class="empty">Seu Carrinho está vazia.</p>
+      </div>
+      <div class="cart-footer">
+        <button id="checkout" class="button">Finalizar pelo WhatsApp</button>
+      </div>
+    </aside>
+    <div class="overlay" id="overlay"></div>
+
+    <dialog class="auth-dialog" id="auth-dialog">
+      <button class="dialog-close" id="close-auth" type="button" aria-label="Fechar">×</button>
+      <h2 id="auth-title">Entrar</h2>
+      <form id="auth-form">
+        <label>Email<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+        <label class="register-only">Nome<input name="name" type="text" autocomplete="name" maxlength="120"></label>
+        <label class="register-only">Telefone<input name="phone" type="tel" autocomplete="tel" maxlength="20"></label>
+        <label class="register-only">Endereço<input name="address" type="text" autocomplete="street-address" maxlength="300"></label>
+        <label>Senha<input name="password" type="password" autocomplete="current-password" required minlength="10" maxlength="128"></label>
+        <p class="auth-error" id="auth-error" role="alert"></p>
+        <button class="button" type="submit" id="auth-submit">Entrar</button>
+      </form>
+      <button class="auth-toggle" id="auth-toggle" type="button">Criar uma conta</button>
+    </dialog>
+
+    <script src="frontend/script.js"></script>
+  </body>
+</html>
