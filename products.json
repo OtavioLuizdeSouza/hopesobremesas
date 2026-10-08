@@ -1,0 +1,202 @@
+{
+  "products": [
+    {
+      "id": "cookie-meio-amargo",
+      "name": "Cookie Meio Amargo",
+      "description": "Cookie artesanal com chocolate meio amargo.",
+      "price": null,
+      "image": "frontend/assets/Cookies/CookieAmargo.jpeg",
+      "category": "categoria1",
+      "available": true
+    },
+    {
+      "id": "cookie-kinder",
+      "name": "Cookie de Kinder",
+      "description": "Cookie recheado com o sabor irresistível de Kinder.",
+      "price": null,
+      "image": "frontend/assets/Cookies/CookiedeKinder.jpeg",
+      "category": "categoria1",
+      "available": true
+    },
+    {
+      "id": "cookie-ninho",
+      "name": "Cookie de Ninho",
+      "description": "Cookie macio com recheio cremoso de leite Ninho.",
+      "price": null,
+      "image": "frontend/assets/Cookies/CookiedeNinho.jpeg",
+      "category": "categoria1",
+      "available": true
+    },
+    {
+      "id": "cookie-nutella",
+      "name": "Cookie de Nutella",
+      "description": "Cookie artesanal com recheio cremoso de Nutella.",
+      "price": null,
+      "image": "frontend/assets/Cookies/CookiedeNutella.jpeg",
+      "category": "categoria1",
+      "available": true
+    },
+    {
+      "id": "cookie-ovomaltine",
+      "name": "Cookie de Ovomaltine",
+      "description": "Cookie com recheio cremoso e crocante de Ovomaltine.",
+      "price": null,
+      "image": "frontend/assets/Cookies/CookiedeOvomaltine.jpeg",
+      "category": "categoria1",
+      "available": true
+    },
+    {
+      "id": "cookie-stikadinho",
+      "name": "Cookie de Stikadinho",
+      "description": "Cookie recheado com chocolate e sabor de morango.",
+      "price": null,
+      "image": "frontend/assets/Cookies/CookiedeStikadinho.jpeg",
+      "category": "categoria1",
+      "available": true
+    },
+    {
+      "id": "brownie-supreme-kinder",
+      "name": "Brownie Supreme de Kinder",
+      "description": "Brownie intenso com cobertura especial de Kinder.",
+      "price": null,
+      "image": "frontend/assets/BrownieSupreme/BrowniesupdeKinder.jpeg",
+      "category": "categoria2",
+      "available": true
+    },
+    {
+      "id": "brownie-supreme-ninho-nutella",
+      "name": "Brownie Supreme de Ninho com Nutella",
+      "description": "Brownie com creme de Ninho e Nutella.",
+      "price": null,
+      "image": "frontend/assets/BrownieSupreme/BrowniesupdeNinhocomNutella.jpeg",
+      "category": "categoria2",
+      "available": true
+    },
+    {
+      "id": "brownie-supreme-nutella",
+      "name": "Brownie Supreme de Nutella",
+      "description": "Brownie de chocolate finalizado com Nutella.",
+      "price": null,
+      "image": "frontend/assets/BrownieSupreme/BrowniesupdeNutella.jpeg",
+      "category": "categoria2",
+      "available": true
+    },
+    {
+      "id": "brownie-supreme-ovomaltine",
+      "name": "Brownie Supreme de Ovomaltine",
+      "description": "Brownie com cobertura cremosa e crocante de Ovomaltine.",
+      "price": null,
+      "image": "frontend/assets/BrownieSupreme/BrowniesupdeOvomaltine.jpeg",
+      "category": "categoria2",
+      "available": true
+    },
+    {
+      "id": "fatia-kinder",
+      "name": "Fatia de Kinder",
+      "description": "Fatia generosa de brownie com Kinder.",
+      "price": null,
+      "image": "frontend/assets/FatiaBrownie/FatiadeKinder.jpeg",
+      "category": "categoria3",
+      "available": true
+    },
+    {
+      "id": "fatia-ninho-nutella",
+      "name": "Fatia de Ninho com Nutella",
+      "description": "Fatia de brownie com Ninho e Nutella.",
+      "price": null,
+      "image": "frontend/assets/FatiaBrownie/FatiadeNinhocomNutella.jpeg",
+      "category": "categoria3",
+      "available": true
+    },
+    {
+      "id": "fatia-nutella",
+      "name": "Fatia de Nutella",
+      "description": "Fatia de brownie com cobertura de Nutella.",
+      "price": null,
+      "image": "frontend/assets/FatiaBrownie/FatiadeNutella.jpeg",
+      "category": "categoria3",
+      "available": true
+    },
+    {
+      "id": "fatia-ovomaltine",
+      "name": "Fatia de Ovomaltine",
+      "description": "Fatia de brownie com creme de Ovomaltine.",
+      "price": null,
+      "image": "frontend/assets/FatiaBrownie/FatiadeOvomaltine.jpeg",
+      "category": "categoria3",
+      "available": true
+    },
+    {
+      "id": "afogadinho-kinder",
+      "name": "Afogadinho de Kinder",
+      "description": "Brownie servido com creme especial de Kinder.",
+      "price": null,
+      "image": "frontend/assets/AfogadinhoBrownie/AfogadinhodeKinder.jpeg",
+      "category": "categoria4",
+      "available": true
+    },
+    {
+      "id": "afogadinho-ninho",
+      "name": "Afogadinho de Ninho",
+      "description": "Brownie servido com creme de leite Ninho.",
+      "price": null,
+      "image": "frontend/assets/AfogadinhoBrownie/AfogadinhodeNinho.jpeg",
+      "category": "categoria4",
+      "available": true
+    },
+    {
+      "id": "afogadinho-nutella",
+      "name": "Afogadinho de Nutella",
+      "description": "Brownie servido com uma camada cremosa de Nutella.",
+      "price": null,
+      "image": "frontend/assets/AfogadinhoBrownie/AfogadinhodeNutella.jpeg",
+      "category": "categoria4",
+      "available": true
+    },
+    {
+      "id": "afogadinho-ovomaltine",
+      "name": "Afogadinho de Ovomaltine",
+      "description": "Brownie servido com creme crocante de Ovomaltine.",
+      "price": null,
+      "image": "frontend/assets/AfogadinhoBrownie/AfogadinhodeOvomaltine.jpeg",
+      "category": "categoria4",
+      "available": true
+    },
+    {
+      "id": "afogadinho-meio-amargo",
+      "name": "Afogadinho Meio Amargo",
+      "description": "Brownie servido com creme de chocolate meio amargo.",
+      "price": null,
+      "image": "frontend/assets/AfogadinhoBrownie/AfogadinhoMeioAmargo.jpeg",
+      "category": "categoria4",
+      "available": true
+    },
+    {
+      "id": "brownie-ao-leite",
+      "name": "Brownie ao Leite",
+      "description": "Brownie tradicional, macio por dentro e com chocolate ao leite.",
+      "price": null,
+      "image": "frontend/assets/Brownie/BrownieaoLeite.jpeg",
+      "category": "categoria5",
+      "available": true
+    },
+    {
+      "id": "bombom-morango-cravejado",
+      "name": "Bombom de Morango Cravejado",
+      "description": "Morango envolvido em creme e finalizado com chocolate.",
+      "price": null,
+      "image": "frontend/assets/BombomMorango/BombomCravejado.jpeg",
+      "category": "categoria6",
+      "available": true
+    },
+    {
+      "id": "bombom-morango-tradicional",
+      "name": "Bombom de Morango Tradicional",
+      "description": "Morango fresco, creme delicado e cobertura de chocolate.",
+      "price": null,
+      "image": "frontend/assets/BombomMorango/BombomTradicional.jpeg",
+      "category": "categoria6",
+      "available": true
+    }
+  ]
+}

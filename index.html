@@ -1,0 +1,273 @@
+<!doctype html>
+<!--
+  ============================================================
+  HOPE SOBREMESAS - PÁGINA PRINCIPAL (index.html)
+  ============================================================
+  Objetivo do site:
+    1. Anunciar os produtos da confeitaria (catálogo);
+    2. Permitir que o cliente monte um carrinho;
+    3. Coletar os dados do cliente (conta/cadastro);
+    4. Encaminhar o pedido para o WhatsApp da loja, onde o
+       pagamento é combinado e realizado.
+
+  Organização do arquivo (de cima para baixo):
+    - <head>          -> configurações da página (título, CSS, ícone)
+    - <header>        -> barra superior (logo, menu, login e carrinho)
+    - <main>          -> conteúdo principal (hero, "como pedir", produtos)
+    - <footer>        -> rodapé (marca, atendimento, Instagram)
+    - <aside> cart    -> painel lateral do carrinho
+    - <dialog> auth   -> janela de login / cadastro
+    - <script>        -> lógica do site (frontend/script.js)
+
+  IMPORTANTE: a lista de produtos NÃO está escrita aqui.
+  O <div id="product-grid"> começa vazio e é preenchido pelo
+  JavaScript (script.js). O mesmo vale para os itens do carrinho.
+-->
+
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#9aaa8e">
+    <title>Hope Sobremesas</title>
+    <link rel="stylesheet" href="frontend/style.css">
+    <link rel="shortcut icon" href="frontend\pdfs\favicon.svg" type="image/x-icon">
+  </head>
+
+  <body>
+    <!-- ======================================================
+         CABEÇALHO (barra superior)
+         Contém: logo, links de navegação, botão de login e botão do carrinho
+         ====================================================== -->
+    <header class="topbar">
+
+      <!-- Logo: ao clicar, volta para o topo da página (#inicio é o id do <main>).
+           aria-label ajuda leitores de tela a descrever o link -->
+      <a class="brand" href="#inicio" aria-label="Hope Sobremesas, início">
+        <img src="frontend/assets/logo-creme-marrom.svg" alt="Hope Sobremesas">
+      </a>
+
+      <!-- Menu de navegação: links "âncora" que rolam a página até a seção com o id correspondente -->
+      <nav aria-label="Navegação principal">
+        <a href="#produtos">Produtos</a>
+        <a href="#como-pedir">Como pedir</a>
+      </nav>
+
+      <!-- Botão que abre a janela de login/cadastro (id="open-auth" é usado pelo JavaScript).
+           type="button" evita que ele envie formulários por engano -->
+      <button class="account-button" id="open-auth" type="button">Entrar</button>
+
+      <!-- Botão que abre o carrinho lateral.
+           O <span id="cart-count"> mostra a quantidade de itens; o JavaScript atualiza esse número -->
+      <button class="cart-button" id="open-cart" type="button">
+        Carrinho | <span id="cart-count">0</span>
+      </button>
+    </header>
+
+    <!-- ======================================================
+         CONTEÚDO PRINCIPAL
+         id="inicio" é o destino do link da logo
+         ====================================================== -->
+    <main id="inicio">
+
+      <!-- ---------- SEÇÃO HERO (apresentação / primeira dobra) ---------- -->
+      <section class="hero">
+        <!-- Lado esquerdo: textos de boas-vindas e botão de chamada para ação -->
+        <div class="hero-copy">
+          <!-- "eyebrow": pequeno texto acima do título -->
+          <p class="eyebrow">SOBREMESAS FEITAS COM CARINHO</p>
+          <h1>Um carinho doce em cada detalhe.</h1>
+          <p>Encomendas preparadas para tornar seus momentos ainda mais especiais.</p>
+          <!-- Rola a página até o catálogo de produtos -->
+          <a class="button" href="#produtos">Ver produtos</a>
+        </div>
+
+        <!-- Lado direito: espaço reservado para uma foto principal.
+             TODO: substituir este <div> por uma <img> quando a foto estiver pronta -->
+        <div
+          class="image-space hero-space"
+          aria-label="Espaço reservado para imagem principal"
+        >
+          <span>ESPAÇO PARA IMAGEM</span>
+        </div>
+      </section>
+
+      <!-- ---------- SEÇÃO "COMO PEDIR" ---------- -->
+      <!-- id="como-pedir" é o destino do link "Como pedir" do menu -->
+      <section class="how" id="como-pedir">
+        <div>
+          <p class="eyebrow">PEDIDO SIMPLES</p>
+          <h2>Monte seu pedido</h2>
+        </div>
+
+        <!-- Logo decorativa da seção -->
+        <img src="frontend/assets/logo-marrom-verde.svg" alt="Logo Hope Sobremesas">
+
+        <!-- Lista ORDENADA (<ol>): numera automaticamente os passos 1, 2, 3 -->
+        <ol>
+          <li>Escolha seus produtos</li>
+          <li>Confira seu Carrinho</li>
+          <li>Finalize pelo WhatsApp</li>
+        </ol>
+      </section>
+
+      <!-- ---------- SEÇÃO DE PRODUTOS (catálogo) ---------- -->
+      <!-- id="produtos" é o destino do botão "Ver produtos" e do menu -->
+      <section class="products" id="produtos">
+        <p class="eyebrow">ESCOLHA A SUA SOBREMESA</p>
+        <h2>Feitos para encantar</h2>
+
+        <!-- Abas de filtro por categoria.
+             Cada botão tem um atributo data-category (ex.: "categoria1").
+             O JavaScript lê esse valor e mostra somente os produtos daquela categoria.
+             "total" = mostra todos. A classe "active" marca a aba selecionada (começa em "Todos"). -->
+        <div class="category-tabs" role="tablist" aria-label="Categorias">
+          <button class="tab active" data-category="total">Todos</button>
+          <button class="tab" data-category="categoria1">Cookies</button>
+          <button class="tab" data-category="categoria2">Brownie Supreme</button>
+          <button class="tab" data-category="categoria3">Fatia de Brownie</button>
+          <button class="tab" data-category="categoria4">Afogadinho de Brownie</button>
+          <button class="tab" data-category="categoria5">Brownie Tradicional</button>
+          <button class="tab" data-category="categoria6">Bombom de Morango</button>
+        </div>
+
+        <!-- Grade de produtos: começa VAZIA.
+             O script.js cria os cartões (foto, nome, preço, botão "Adicionar") e coloca aqui dentro -->
+        <div class="product-grid" id="product-grid"></div>
+      </section>
+    </main>
+
+    <!-- ======================================================
+         RODAPÉ
+         ====================================================== -->
+    <footer class="site-footer">
+
+      <!-- Bloco da marca: logo + frase institucional -->
+      <div class="footer-brand">
+        <img src="frontend/assets/logo-creme-marrom.svg" alt="Hope Sobremesas">
+        <p>Sobremesas feitas para celebrar momentos especiais.</p>
+      </div>
+
+      <!-- Bloco de atendimento -->
+      <div class="footer-contact">
+        <span class="footer-label">Atendimento</span>
+        <p>Encomendas sob consulta</p>
+      </div>
+
+      <!-- Link para o Instagram da loja.
+           target="_blank": abre em nova aba.
+           rel="noopener noreferrer": medida de segurança para links externos em nova aba.
+           aria-label: descrição para leitores de tela (o ícone sozinho não tem texto) -->
+      <a
+        class="instagram-link"
+        href="https://www.instagram.com/hopesobremesas/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Siga Hope Sobremesas no Instagram"
+      >
+        <!-- Ícone do Instagram desenhado em SVG (não precisa de arquivo de imagem).
+             aria-hidden="true": leitores de tela ignoram o desenho, pois o texto ao lado já explica.
+             focusable="false": evita foco indevido no SVG em alguns navegadores antigos. -->
+        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect> <!-- contorno quadrado arredondado -->
+          <circle cx="12" cy="12" r="4"></circle>                  <!-- lente da câmera -->
+          <circle class="instagram-dot" cx="17.5" cy="6.5" r="1"></circle> <!-- pontinho do flash -->
+        </svg>
+        <span>Siga-nos no Instagram</span>
+      </a>
+
+      <!-- Linha final com direitos autorais -->
+      <div class="footer-bottom">
+        <p>© 2026 Hope Sobremesas. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <!-- ======================================================
+         CARRINHO LATERAL
+         Painel que desliza na lateral da tela. O CSS o mantém escondido;
+         o JavaScript o exibe/oculta e altera aria-hidden (acessibilidade).
+         ====================================================== -->
+    <aside class="cart" id="cart" aria-hidden="true">
+
+      <!-- Cabeçalho do carrinho: título + botão de fechar (×) -->
+      <div class="cart-head">
+        <h2>Seu Carrinho</h2>
+        <button id="close-cart" aria-label="Fechar">×</button>
+      </div>
+
+      <!-- Área dos itens. Mensagem inicial de carrinho vazio;
+           o JavaScript substitui este conteúdo pelos produtos adicionados.
+           Obs.: "Carrinho" é masculino, então o texto correto seria "está vazio". -->
+      <div id="cart-items" class="cart-items">
+        <p class="empty">Seu Carrinho está vazia.</p>
+      </div>
+
+      <!-- Rodapé do carrinho: botão que monta a mensagem do pedido e abre o WhatsApp da loja -->
+      <div class="cart-footer">
+        <button id="checkout" class="button">Finalizar pelo WhatsApp</button>
+      </div>
+    </aside>
+
+    <!-- Fundo escurecido que cobre a página quando o carrinho está aberto.
+         Clicar nele normalmente fecha o carrinho (controlado pelo JavaScript) -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- ======================================================
+         JANELA DE LOGIN / CADASTRO
+         <dialog> é um elemento nativo do HTML para janelas modais:
+         o JavaScript abre com .showModal() e fecha com .close().
+         A MESMA janela serve para "Entrar" e "Criar conta":
+         o JavaScript alterna o título/botões e mostra/esconde os campos "register-only".
+         ====================================================== -->
+    <dialog class="auth-dialog" id="auth-dialog">
+
+      <!-- Botão de fechar a janela -->
+      <button class="dialog-close" id="close-auth" type="button" aria-label="Fechar">×</button>
+
+      <!-- Título dinâmico: muda entre "Entrar" e "Criar conta" -->
+      <h2 id="auth-title">Entrar</h2>
+
+      <form id="auth-form">
+        <!-- E-mail: usado nos dois modos (login e cadastro).
+             required = obrigatório; type="email" valida o formato;
+             autocomplete ajuda o navegador a preencher sozinho;
+             maxlength limita o tamanho (254 é o máximo padrão de um e-mail) -->
+        <label>Email<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+
+        <!-- Campos abaixo têm a classe "register-only":
+             aparecem SOMENTE no modo cadastro (o CSS/JS os esconde no login).
+             São os dados do cliente que serão usados no pedido enviado ao WhatsApp. -->
+        <label class="register-only">Nome<input name="name" type="text" autocomplete="name" maxlength="120"></label>
+        <label class="register-only">Telefone<input name="phone" type="tel" autocomplete="tel" maxlength="20"></label>
+        <label class="register-only">Endereço<input name="address" type="text" autocomplete="street-address" maxlength="300"></label>
+
+        <!-- Senha: mínimo de 10 caracteres e máximo de 128.
+             Dica: no cadastro, o ideal é o JavaScript trocar autocomplete para "new-password" -->
+        <label>Senha<input name="password" type="password" autocomplete="current-password" required minlength="10" maxlength="128"></label>
+
+        <!-- Local onde o JavaScript exibe mensagens de erro (ex.: "senha incorreta").
+             role="alert" faz leitores de tela anunciarem a mensagem automaticamente -->
+        <p class="auth-error" id="auth-error" role="alert"></p>
+
+        <!-- Botão de envio do formulário; o texto muda conforme o modo (Entrar / Criar conta) -->
+        <button class="button" type="submit" id="auth-submit">Entrar</button>
+      </form>
+
+      <!-- Alterna entre os modos "Entrar" e "Criar uma conta" -->
+      <button class="auth-toggle" id="auth-toggle" type="button">Criar uma conta</button>
+    </dialog>
+
+    <!-- ======================================================
+         SCRIPT PRINCIPAL
+         Fica no FINAL do <body> de propósito: assim todo o HTML acima já foi
+         carregado quando o JavaScript procura os elementos pelos ids.
+         É ele que:
+           - cria os cartões de produtos dentro de #product-grid;
+           - filtra por categoria (abas .tab);
+           - controla o carrinho (abrir/fechar, adicionar, contador #cart-count);
+           - controla login/cadastro (#auth-dialog, #auth-form);
+           - monta a mensagem do pedido e abre o WhatsApp (#checkout).
+         ====================================================== -->
+    <script src="frontend/script.js"></script>
+  </body>
+</html>

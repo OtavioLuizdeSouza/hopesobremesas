@@ -1,0 +1,15 @@
+{
+  "name": "hopesobremesas-main",
+  "version": "1.0.0",
+  "description": "Site institucional e catálogo digital da **Hope Sobremesas**, criado para apresentar a marca, suas categorias de produtos e uma forma simples de iniciar um pedido.",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
