@@ -7,6 +7,8 @@ import { env } from './src/config/env.js';
 import { prisma } from './src/config/prisma.js';
 import { authRouter } from './src/routes/auth.routes.js';
 import { validationError } from './src/controllers/auth.controller.js';
+import produtoRoutes from './src/routes/produtoRoutes.js'; //Produtos Supabase
+import { iniciarSincronizacao } from './src/services/produtoService.js'; // Sincroniza o frontend/dados.json
 
 const app = express();
 const root = env.FRONTEND_DIR ? path.resolve(env.FRONTEND_DIR) : fileURLToPath(new URL('../', import.meta.url));
@@ -19,6 +21,7 @@ app.set('trust proxy', 1);
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json({ limit: '20kb' }));
 app.use(cookieParser());
+app.use('/api/produtos', produtoRoutes); //Produtos do supabase
 
 app.use('/api/auth', (request, response, next) => {
   if (request.method === 'GET') return next();
@@ -44,6 +47,9 @@ app.use((error, request, response, next) => {
 });
 
 const server = app.listen(env.PORT, () => console.log(`Hope Sobremesas: http://localhost:${env.PORT}`));
+
+// Mantém o frontend/dados.json em sincronia com a tabela produtos do Supabase.
+iniciarSincronizacao(path.join(frontendRoot, 'dados.json'));
 
 async function shutdown() {
   await prisma.$disconnect();
