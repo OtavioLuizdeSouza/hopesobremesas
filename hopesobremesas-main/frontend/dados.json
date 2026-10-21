@@ -23,7 +23,7 @@
         "id": 3,
         "nome": "Cookie de Ninho",
         "descricao": "Cookie macio com recheio cremoso de leite Ninho.",
-        "preco": 10,
+        "preco": 10.99,
         "estoque": 0,
         "imagem": "frontend/assets/Cookies/id3.jpeg",
         "esta_disponivel": true,
@@ -218,5 +218,25 @@
         "imagem": "frontend/assets/Bombom/id22.jpeg",
         "esta_disponivel": true,
         "categoria": "Bombom"
+    },
+    {
+        "id": 23,
+        "nome": "Teste",
+        "descricao": "Teste descricao",
+        "preco": 99.99,
+        "estoque": 0,
+        "imagem": null,
+        "esta_disponivel": false,
+        "categoria": null
+    },
+    {
+        "id": 24,
+        "nome": "Teste",
+        "descricao": "Teste descricao",
+        "preco": 99.99,
+        "estoque": 0,
+        "imagem": null,
+        "esta_disponivel": false,
+        "categoria": null
     }
 ]
