@@ -8,7 +8,7 @@ import { prisma } from './src/config/prisma.js';
 import { authRouter } from './src/routes/auth.routes.js';
 import { validationError } from './src/controllers/auth.controller.js';
 import produtoRoutes from './src/routes/produtoRoutes.js'; //Produtos Supabase
-import { iniciarSincronizacao } from './src/services/produtoService.js'; // Sincroniza o frontend/dados.json
+import { iniciarAtualizacaoDoCache } from './src/services/produtoService.js'; // Mantém o catálogo em memória atualizado
 
 const app = express();
 const root = env.FRONTEND_DIR ? path.resolve(env.FRONTEND_DIR) : fileURLToPath(new URL('../', import.meta.url));
@@ -40,6 +40,12 @@ app.use('/api/auth', (request, response, next) => {
 app.use('/api/auth', authRouter);
 app.get('/', (request, response) => response.sendFile(path.join(root, 'index.html')));
 app.use('/frontend', express.static(frontendRoot, { index: false, dotfiles: 'deny' }));
+
+// ---- Painel admin (React) em /admin ----
+const adminDist = path.join(root, 'admin', 'dist');
+app.use('/admin', express.static(adminDist, { dotfiles: 'deny' }));
+app.get(/^\/admin(?:\/.*)?$/, (request, response) => response.sendFile(path.join(adminDist, 'index.html')));
+
 app.use(validationError);
 app.use((error, request, response, next) => {
   console.error(error);
@@ -48,8 +54,8 @@ app.use((error, request, response, next) => {
 
 const server = app.listen(env.PORT, () => console.log(`Hope Sobremesas: http://localhost:${env.PORT}`));
 
-// Mantém o frontend/dados.json em sincronia com a tabela produtos do Supabase.
-iniciarSincronizacao(path.join(frontendRoot, 'dados.json'));
+// Mantém o catálogo em memória em sincronia com a tabela produtos do Supabase.
+iniciarAtualizacaoDoCache();
 
 async function shutdown() {
   await prisma.$disconnect();

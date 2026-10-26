@@ -1,7 +1,7 @@
 const WHATSAPP_NUMBER = '5511999999999';
 
 // Caminho do arquivo de produtos (relativo ao index.html).
-const PRODUCTS_URL = 'frontend/dados.json';
+const PRODUCTS_URL = '/api/produtos';
 
 // Liga o data-category das abas (index.html) ao campo "categoria" da api produtos.
 const CATEGORY_MAP = {

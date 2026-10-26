@@ -1,10 +1,9 @@
-import { readFile, writeFile, rename } from 'node:fs/promises';
 import { supabase } from '../config/supabase.js';
 import { listarProdutos } from '../repositories/produtoRepository.js';
 
 const TTL_MS = 2 * 60 * 1000; // 2 minutos
 const INTERVALO_MS = 60 * 1000; // rede de segurança: confere o banco a cada 1 minuto
-const ESPERA_MS = 1000; // junta várias alterações seguidas em uma única sincronização
+const ESPERA_MS = 1000; // junta várias alterações seguidas em uma única atualização
 
 let cache = { dados: null, expiraEm: 0 };
 
@@ -22,81 +21,58 @@ export async function obterCatalogo() {
   }
 }
 
-// ---------- Sincronização do frontend/dados.json ----------
+// ---------- Atualização do cache (substitui a sincronização do dados.json) ----------
 
-let caminhoDados = null;
-let sincronizando = false;
+let atualizando = false;
 let novaRodadaPendente = false;
 let temporizador = null;
 
-// Grava o arquivo só se o conteúdo mudou. Escreve em um arquivo temporário e depois
-// o renomeia, para o navegador nunca ler um dados.json pela metade.
-async function gravarSeMudou(dados) {
-  const conteudo = JSON.stringify(dados, null, 4) + '\n';
-
-  try {
-    if ((await readFile(caminhoDados, 'utf-8')) === conteudo) return false;
-  } catch {
-    // o arquivo ainda não existe: será criado abaixo
-  }
-
-  const temporario = `${caminhoDados}.tmp`;
-  await writeFile(temporario, conteudo, 'utf-8');
-  await rename(temporario, caminhoDados);
-  return true;
-}
-
-export async function sincronizarDados() {
-  // Se já houver uma sincronização em andamento, roda mais uma assim que ela terminar.
-  if (sincronizando) {
+export async function atualizarCache() {
+  // Se já houver uma atualização em andamento, roda mais uma assim que ela terminar.
+  if (atualizando) {
     novaRodadaPendente = true;
     return;
   }
 
-  sincronizando = true;
+  atualizando = true;
   try {
     const dados = await listarProdutos();
 
     // Proteção: tabela vazia costuma indicar RLS sem política de leitura.
-    // Nesse caso o dados.json atual é mantido em vez de ser apagado.
+    // Nesse caso o cache atual é mantido em vez de ser substituído por uma lista vazia.
     if (!dados.length) {
-      console.warn('Sincronização ignorada: o Supabase retornou 0 produtos. dados.json mantido.');
+      console.warn('Atualização ignorada: o Supabase retornou 0 produtos. Cache mantido.');
       return;
     }
 
     cache = { dados, expiraEm: Date.now() + TTL_MS };
-
-    if (await gravarSeMudou(dados)) {
-      console.log(`dados.json atualizado (${dados.length} produtos).`);
-    }
+    console.log(`Catálogo atualizado em memória (${dados.length} produtos).`);
   } catch (err) {
-    // Supabase fora do ar ou erro de gravação: o dados.json anterior continua intacto.
-    console.error('Falha ao sincronizar dados.json (arquivo anterior mantido):', err.message);
+    // Supabase fora do ar: o cache anterior continua sendo usado.
+    console.error('Falha ao atualizar o catálogo (cache anterior mantido):', err.message);
   } finally {
-    sincronizando = false;
+    atualizando = false;
     if (novaRodadaPendente) {
       novaRodadaPendente = false;
-      sincronizarDados();
+      atualizarCache();
     }
   }
 }
 
-function agendarSincronizacao() {
+function agendarAtualizacao() {
   clearTimeout(temporizador);
-  temporizador = setTimeout(sincronizarDados, ESPERA_MS);
+  temporizador = setTimeout(atualizarCache, ESPERA_MS);
 }
 
-// Chame uma vez ao iniciar o servidor, passando o caminho do frontend/dados.json.
-export function iniciarSincronizacao(caminho) {
-  caminhoDados = caminho;
-
-  // 1) Sincroniza ao iniciar.
-  sincronizarDados();
+// Chame uma vez ao iniciar o servidor (não precisa mais de caminho de arquivo).
+export function iniciarAtualizacaoDoCache() {
+  // 1) Carrega o catálogo ao iniciar.
+  atualizarCache();
 
   // 2) Atualiza em tempo real a cada INSERT, UPDATE ou DELETE na tabela produtos.
   supabase
     .channel('produtos-sync')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'produtos' }, agendarSincronizacao)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'produtos' }, agendarAtualizacao)
     .subscribe((status, err) => {
       if (status === 'SUBSCRIBED') {
         console.log('Escutando alterações da tabela produtos (Realtime).');
@@ -106,5 +82,5 @@ export function iniciarSincronizacao(caminho) {
     });
 
   // 3) Rede de segurança: se um evento se perder ou a conexão cair, o banco é conferido de novo.
-  setInterval(sincronizarDados, INTERVALO_MS);
+  setInterval(atualizarCache, INTERVALO_MS);
 }

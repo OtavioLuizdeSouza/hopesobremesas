@@ -217,7 +217,7 @@ h2 {
 	object-position: center 80%;
 }
 
-/* Ajuste individual do enquadramento de cada produto (pelo id do dados.json). */
+/* Ajuste individual do enquadramento de cada produto. */
 .product-image-id1 { object-position: center 60%; }
 .product-image-id2 { object-position: center 60%; }
 .product-image-id3 { object-position: center 60%; }
