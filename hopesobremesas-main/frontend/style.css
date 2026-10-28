@@ -204,10 +204,28 @@ h2 {
   gap: 24px;
 }
 .product-card {
+  position: relative; 
+  display: flex;
+  flex-direction: column;
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 3px;
   overflow: hidden;
+}
+.product-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  padding: 10px 14px;
+  background: #a0543c;
+  color: var(--cream);
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 .product-image {
 	display: block;
@@ -247,6 +265,9 @@ h2 {
 .product-image-id22 { object-position: center 50%; }
 
 .product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 20px;
 }
 .product-name {
@@ -269,6 +290,7 @@ h2 {
 	font-weight: 700;
 }
 .add {
+  margin-top: auto;
   width: 100%;
   border: 1px solid var(--brown);
   background: transparent;

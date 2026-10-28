@@ -35,6 +35,13 @@ function getVisibleProducts() {
 	});
 }
 
+// Texto do selo conforme o estoque: zerado = só por agendamento.
+function getStockBadge(product) {
+	const stock = Number(product.estoque) || 0;
+	if (stock <= 0) return 'Apenas agendamento';
+	return `${stock} ${stock === 1 ? 'unidade disponível' : 'unidades disponíveis'}`;
+}
+
 function renderProducts() {
 	const visibleProducts = getVisibleProducts();
 
@@ -49,6 +56,7 @@ function renderProducts() {
 			(product) => `
 				<article class="product-card">
 					<img class="product-image product-image-id${product.id}" src="${product.imagem}" alt="${product.nome}" loading="lazy">
+					<span class="product-badge">${getStockBadge(product)}</span>
 					<div class="product-info">
 						<h3 class="product-name">${product.nome}</h3>
 						<p class="product-description">${product.descricao}</p>
