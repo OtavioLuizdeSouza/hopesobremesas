@@ -1,0 +1,212 @@
+/* ---------- Paleta ---------- */
+:root {
+  --creme: #f8f1e6;
+  --creme-escuro: #ead9c3;
+  --linha: #6b4630;
+  --texto: #3a2417;
+  --marrom: #4a2616;
+  --marrom-medio: #8c5a3c;
+  --terracota: #b5584a;
+  --verde: #6f8f5a;
+}
+
+/* ---------- Base ---------- */
+body {
+  display: block;
+  margin: 0;
+  padding: 1rem 1rem 6rem; /* espaço embaixo para o botão fixo não cobrir a tabela */
+  background: var(--creme);
+  color: var(--texto);
+  font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 450;
+}
+
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  background: var(--marrom);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.12);
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--marrom-medio);
+  outline-offset: 2px;
+}
+
+/* ---------- Formulários (criar / editar) ---------- */
+.form-card {
+  display: flex;
+  flex-wrap: nowrap;          /* tudo em uma única linha */
+  gap: 8px;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 900px;
+  width: 100%;
+  margin: 0.75rem auto;
+  padding: 8px 12px;
+  background: var(--creme-escuro);
+  border-radius: 12px;
+}
+
+.form-card input {
+  flex: 1 1 0;                /* os campos dividem o espaço disponível */
+  min-width: 0;
+  padding: 5px 10px;
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+  background: var(--creme);
+  color: var(--texto);
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+/* Descrição ganha mais espaço; preço e estoque, menos */
+.form-card input[name='nome']      { flex: 2 1 0; }
+.form-card input[name='descricao'] { flex: 3 1 0; }
+.form-card input[name='categoria'] { flex: 1.5 1 0; }
+.form-card input[name='preco']     { flex: 1 1 0; }
+.form-card input[name='estoque']   { flex: 1 1 0; }
+
+.form-card button {
+  flex-shrink: 0;
+  padding: 5px 14px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Em telas estreitas, volta a quebrar linha */
+@media (max-width: 700px) {
+  .form-card {
+    flex-wrap: wrap;
+  }
+  .form-card input {
+    flex: 1 1 140px;
+  }
+}
+
+/* ---------- Tabela ---------- */
+table {
+  border-collapse: separate; /* necessário para o border-radius funcionar */
+  border-spacing: 0;
+  max-width: 900px;
+  width: 100%;
+  margin: 2rem auto;
+  border: 1px solid var(--linha);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table th,
+table td {
+  padding: 8px;
+  border-right: 1px solid var(--linha);
+  border-bottom: 1px solid var(--linha);
+  text-align: center;
+}
+
+table th:last-child,
+table td:last-child {
+  border-right: none;
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+table th {
+  padding: 10px 8px;
+  background: var(--creme-escuro);
+  font-weight: 700;
+}
+
+table td {
+  background: #fbf6ee;
+}
+
+/* Produto e Descrição alinhados à esquerda */
+table td:nth-child(2),
+table td:nth-child(3) {
+  text-align: left;
+}
+
+/* Produto removido (esta_disponivel = false) */
+.indisponivel td {
+  background: #ecd3cd;
+  color: #8a4b42;
+}
+
+/* ---------- Campo de estoque ---------- */
+.input-estoque {
+  width: 70px;
+  padding: 6px 8px;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  background: var(--creme);
+  color: var(--texto);
+  font: inherit;
+}
+
+/* ---------- Botões da coluna Ações (empilhados) ---------- */
+.acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.acoes button {
+  width: 76px;
+  padding: 3px 0;
+  font-size: 0.78rem;
+}
+
+.btn-remover {
+  background-color: #B22222;
+}
+
+.btn-restaurar {
+  background: var(--verde);
+}
+
+.btn-editar {
+  background: var(--marrom);
+}
+
+/* ---------- Botão fixo "Salvar Estoque" ---------- */
+#botao_salvar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#botao_salvar button {
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: var(--marrom);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- Toast (acima do botão Salvar Estoque) ---------- */
+.toast {
+  position: fixed;
+  bottom: 84px;
+  right: 20px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+}
+
+.toast-sucesso { background: #4a8f5a; }
+.toast-erro { background: #b94a48; }
+.toast-info { background: #6b4a2f; }
