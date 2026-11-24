@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#75552c">
+    <title>Hope Sobremesas</title>
+    <link rel="stylesheet" href="frontend/style.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#inicio" aria-label="Hope Sobremesas, início">
+        <img src="frontend/assets/logo-creme-marrom.svg" alt="Hope Sobremesas">
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="#produtos">Produtos</a>
+        <a href="#como-pedir">Como pedir</a>
+      </nav>
+      <button class="account-button" id="open-auth" type="button">Entrar</button>
+      <button class="cart-button" id="open-cart" type="button">
+        Carrinho | <span id="cart-count">0</span>
+      </button>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">SOBREMESAS FEITAS COM CARINHO</p>
+          <h1>Um carinho doce em cada detalhe.</h1>
+          <p>Encomendas preparadas para tornar seus momentos ainda mais especiais.</p>
+          <a class="button" href="#produtos">Ver produtos</a>
+        </div>
+        <div
+          class="image-space hero-space"
+          aria-label="Espaço reservado para imagem principal"
+        >
+          <span>ESPAÇO PARA IMAGEM</span>
+        </div>
+      </section>
+
+      <section class="how" id="como-pedir">
+        <div>
+          <p class="eyebrow">PEDIDO SIMPLES</p>
+          <h2>Monte seu pedido</h2>
+        </div>
+        <img src="frontend/assets/logo-marrom-verde.svg" alt="Logo Hope Sobremesas">
+        <ol>
+          <li>Escolha seus produtos</li>
+          <li>Confira seu Carrinho</li>
+          <li>Finalize pelo WhatsApp</li>
+        </ol>
+      </section>
+
+      <section class="products" id="produtos">
+        <p class="eyebrow">ESCOLHA A SUA SOBREMESA</p>
+        <h2>Feitos para encantar</h2>
+        <div class="category-tabs" role="tablist" aria-label="Categorias">
+          <button class="tab active" type="button" data-category="">Todos</button>
+        </div>
+        <div class="product-grid" id="product-grid"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <img src="frontend/assets/logo-creme-marrom.svg" alt="Hope Sobremesas">
+        <p>Sobremesas feitas para celebrar momentos especiais.</p>
+      </div>
+      <div class="footer-contact">
+        <span class="footer-label">Atendimento</span>
+        <p>Encomendas sob consulta</p>
+      </div>
+      <a
+        class="instagram-link"
+        href="https://www.instagram.com/hopesobremesas/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Siga Hope Sobremesas no Instagram"
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle class="instagram-dot" cx="17.5" cy="6.5" r="1"></circle>
+        </svg>
+        <span>Siga-nos no Instagram</span>
+      </a>
+      <div class="footer-bottom">
+        <p>© 2026 Hope Sobremesas. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <aside class="cart" id="cart" aria-hidden="true" aria-label="Seu Carrinho">
+      <div class="cart-head">
+        <h2>Seu Carrinho <span id="cart-title-count">(0 itens)</span></h2>
+        <button id="close-cart" type="button" aria-label="Fechar">×</button>
+      </div>
+      <div class="cart-scroll">
+        <div id="cart-items" class="cart-items">
+          <p class="empty">Seu carrinho está vazio.</p>
+        </div>
+
+        <section class="cart-logistics" aria-labelledby="cart-logistics-title">
+          <h3 id="cart-logistics-title">Envio (Logística)</h3>
+          <fieldset class="shipping-options">
+            <legend class="sr-only">Selecione como receber o pedido</legend>
+            <label>
+              <input type="radio" name="shipping-method" value="retirada" checked>
+              <span>Retirada (Grátis)</span>
+            </label>
+            <label>
+              <input type="radio" name="shipping-method" value="entrega">
+              <span>Entrega (Motoboy)</span>
+            </label>
+          </fieldset>
+          <div id="delivery-fields" class="delivery-fields" hidden>
+            <p class="delivery-fields-title">Endereço de entrega</p>
+            <div class="delivery-address-grid">
+              <label class="address-field address-field--cep" for="delivery-cep">
+                CEP
+                <input id="delivery-cep" class="delivery-address-input" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="00000-000">
+              </label>
+              <label class="address-field address-field--street" for="delivery-street">
+                Rua
+                <input id="delivery-street" class="delivery-address-input" type="text" autocomplete="address-line1" maxlength="160">
+              </label>
+              <label class="address-field address-field--number" for="delivery-number">
+                Número
+                <input id="delivery-number" class="delivery-address-input" type="text" maxlength="20">
+              </label>
+              <label class="address-field address-field--neighborhood" for="delivery-neighborhood">
+                Bairro
+                <input id="delivery-neighborhood" class="delivery-address-input" type="text" autocomplete="address-level3" maxlength="100">
+              </label>
+              <label class="address-field address-field--city" for="delivery-city">
+                Cidade
+                <input id="delivery-city" class="delivery-address-input" type="text" autocomplete="address-level2" maxlength="100">
+              </label>
+            </div>
+            <p id="delivery-distance" class="delivery-distance" hidden></p>
+            <p id="delivery-status" class="delivery-status" role="status" hidden></p>
+            <div id="delivery-alert" class="delivery-alert" role="alert" hidden>
+              <span class="warning-icon" aria-hidden="true">▲</span>
+              <span id="delivery-alert-text"></span>
+            </div>
+          </div>
+          <div id="pickup-fields" class="pickup-fields">
+            <label for="pickup-time">Horário para retirada</label>
+            <input id="pickup-time" type="time" required>
+          </div>
+        </section>
+
+        <section class="cart-customer" aria-labelledby="cart-customer-title">
+          <h3 id="cart-customer-title">Seus dados</h3>
+          <label for="customer-name">Nome</label>
+          <input id="customer-name" type="text" autocomplete="name" maxlength="120" required>
+          <label for="customer-phone">Telefone/WhatsApp</label>
+          <input id="customer-phone" type="tel" autocomplete="tel" maxlength="30" required>
+        </section>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-summary" aria-live="polite">
+          <p><span>Subtotal</span><strong id="cart-subtotal">R$ 0,00</strong></p>
+          <p><span>Taxa de frete</span><strong id="cart-shipping-cost">Grátis</strong></p>
+          <p class="cart-total"><span>Total</span><strong id="cart-total">R$ 0,00</strong></p>
+        </div>
+        <button id="checkout" class="button" type="button" disabled>Finalizar pelo WhatsApp</button>
+        <p id="checkout-hint" class="checkout-hint">Resolva o erro de envio para prosseguir</p>
+        <p id="checkout-error" class="checkout-error" role="alert" hidden></p>
+      </div>
+    </aside>
+    <div class="overlay" id="overlay"></div>
+
+    <dialog class="auth-dialog" id="auth-dialog">
+      <button class="dialog-close" id="close-auth" type="button" aria-label="Fechar">×</button>
+      <h2 id="auth-title">Entrar</h2>
+      <form id="auth-form">
+        <label>Email<input name="email" type="email" autocomplete="email" required maxlength="254"></label>
+        <label class="register-only">Nome<input name="name" type="text" autocomplete="name" maxlength="120"></label>
+        <label class="register-only">Telefone<input name="phone" type="tel" autocomplete="tel" maxlength="20"></label>
+        <label class="register-only">Endereço<input name="address" type="text" autocomplete="street-address" maxlength="300"></label>
+        <label>Senha<input name="password" type="password" autocomplete="current-password" required minlength="10" maxlength="128"></label>
+        <p class="auth-error" id="auth-error" role="alert"></p>
+        <button class="button" type="submit" id="auth-submit">Entrar</button>
+      </form>
+      <button class="auth-toggle" id="auth-toggle" type="button">Criar uma conta</button>
+    </dialog>
+
+    <script src="frontend/script.js"></script>
+  </body>
+</html>

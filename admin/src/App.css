@@ -1,0 +1,474 @@
+/* ---------- Paleta ---------- */
+:root {
+  --creme: #f8f1e6;
+  --creme-escuro: #ead9c3;
+  --linha: #6b4630;
+  --texto: #3a2417;
+  --marrom: #4a2616;
+  --marrom-medio: #8c5a3c;
+  --terracota: #b5584a;
+  --verde: #6f8f5a;
+}
+
+/* ---------- Base ---------- */
+body {
+  display: block;
+  margin: 0;
+  padding: 1rem 1rem 6rem; /* espaço embaixo para o botão fixo não cobrir a tabela */
+  background: var(--creme);
+  color: var(--texto);
+  font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 450;
+}
+
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  background: var(--marrom);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.12);
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--marrom-medio);
+  outline-offset: 2px;
+}
+
+/* ---------- Edição de produto ---------- */
+.form-card {
+  display: flex;
+  flex-wrap: nowrap;          /* tudo em uma única linha */
+  gap: 8px;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 900px;
+  width: 100%;
+  margin: 0.75rem auto;
+  padding: 8px 12px;
+  background: var(--creme-escuro);
+  border-radius: 12px;
+}
+
+.form-card input {
+  flex: 1 1 0;                /* os campos dividem o espaço disponível */
+  min-width: 0;
+  padding: 5px 10px;
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+  background: var(--creme);
+  color: var(--texto);
+  font: inherit;
+  font-size: 0.85rem;
+}
+
+/* Descrição ganha mais espaço; preço e estoque, menos */
+.form-card input[name='nome']      { flex: 2 1 0; }
+.form-card input[name='descricao'] { flex: 3 1 0; }
+.form-card input[name='categoria'] { flex: 1.5 1 0; }
+.form-card input[name='preco']     { flex: 1 1 0; }
+.form-card input[name='estoque']   { flex: 1 1 0; }
+
+.form-card button {
+  flex-shrink: 0;
+  padding: 5px 14px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Em telas estreitas, volta a quebrar linha */
+@media (max-width: 700px) {
+  .form-card {
+    flex-wrap: wrap;
+  }
+  .form-card input {
+    flex: 1 1 140px;
+  }
+}
+
+/* ---------- Cadastro em modal ---------- */
+.toolbar-produtos {
+  position: fixed;
+  right: 20px;
+  bottom: 82px;
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.toolbar-produtos button {
+  padding: 10px 20px;
+}
+
+.pedidos-shortcut {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1000;
+  display: block;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+.pedidos-shortcut img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pedidos-shortcut:focus-visible {
+  outline: 2px solid var(--marrom-medio);
+  outline-offset: 3px;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(25, 18, 14, 0.58);
+}
+
+.modal-cadastro {
+  box-sizing: border-box;
+  width: min(590px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  padding: 18px;
+  border: 1px solid var(--linha);
+  border-radius: 14px;
+  background: #fbf6ee;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+}
+
+.modal-cadastro h1 {
+  margin: 0 0 28px;
+  color: var(--marrom);
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.form-cadastro {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: 20px;
+}
+
+.controle-imagem {
+  min-width: 0;
+}
+
+.seletor-imagem {
+  box-sizing: border-box;
+  width: 128px;
+  height: 128px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 2px dashed var(--linha);
+  border-radius: 14px;
+  color: var(--marrom);
+  cursor: pointer;
+  text-align: center;
+}
+
+.seletor-imagem span {
+  line-height: 1.7;
+}
+
+.seletor-imagem > span {
+  display: grid;
+  place-items: center;
+  gap: 2px;
+}
+
+.seletor-imagem svg {
+  width: 42px;
+  height: 42px;
+  fill: var(--marrom);
+}
+
+.seletor-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-remover-imagem {
+  width: 100%;
+  margin-top: 8px;
+  padding: 6px 8px;
+  background: #ead9c3;
+  color: var(--texto);
+  font-size: 0.78rem;
+}
+
+#imagem-produto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.controle-zoom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  font-size: 0.85rem;
+}
+
+.controle-zoom > span:first-child {
+  display: block;
+}
+
+.zoom-valor {
+  box-sizing: border-box;
+  width: 50px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 0 4px;
+  border: 1px solid #9a8879;
+  border-radius: 8px;
+  background: #fbf6ee;
+}
+
+.zoom-valor input {
+  width: 30px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--texto);
+  font: inherit;
+  font-size: 0.75rem;
+  text-align: right;
+  appearance: textfield;
+}
+
+.zoom-valor input::-webkit-inner-spin-button,
+.zoom-valor input::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.zoom-valor > span {
+  font-size: 0.72rem;
+}
+
+.campos-cadastro {
+  display: grid;
+  align-content: start;
+  gap: 22px;
+}
+
+.campos-cadastro > input,
+.campos-cadastro textarea,
+.linha-campos input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 5px 11px;
+  border: 1px solid #9a8879;
+  border-radius: 999px;
+  background: #fbf6ee;
+  color: var(--texto);
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.campos-cadastro textarea {
+  min-height: 40px;
+  resize: none;
+  border-radius: 14px;
+}
+
+.linha-campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.aviso-upload {
+  margin: 0;
+  color: #8a4b20;
+  font-size: 0.85rem;
+}
+
+.acoes-modal {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 11px;
+}
+
+.acoes-modal .btn-cancelar {
+  border: 1px solid var(--linha);
+  background: var(--creme-escuro);
+  color: var(--texto);
+}
+
+.campos-cadastro input:disabled,
+.campos-cadastro textarea:disabled {
+  opacity: 0.72;
+}
+
+@media (max-width: 480px) {
+  .modal-cadastro {
+    padding: 14px;
+  }
+
+  .form-cadastro {
+    grid-template-columns: 1fr;
+  }
+
+  .controle-imagem {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+  }
+
+  .seletor-imagem {
+    width: 112px;
+    height: 112px;
+  }
+
+  .controle-zoom {
+    margin-top: 0;
+  }
+}
+
+/* ---------- Tabela ---------- */
+table {
+  border-collapse: separate; /* necessário para o border-radius funcionar */
+  border-spacing: 0;
+  max-width: 900px;
+  width: 100%;
+  margin: 2rem auto;
+  border: 1px solid var(--linha);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table th,
+table td {
+  padding: 8px;
+  border-right: 1px solid var(--linha);
+  border-bottom: 1px solid var(--linha);
+  text-align: center;
+}
+
+table th:last-child,
+table td:last-child {
+  border-right: none;
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+table th {
+  padding: 10px 8px;
+  background: var(--creme-escuro);
+  font-weight: 700;
+}
+
+table td {
+  background: #fbf6ee;
+}
+
+/* Produto e Descrição alinhados à esquerda */
+table td:nth-child(2),
+table td:nth-child(3) {
+  text-align: left;
+}
+
+/* Produto removido (esta_disponivel = false) */
+.indisponivel td {
+  background: #ecd3cd;
+  color: #8a4b42;
+}
+
+/* ---------- Campo de estoque ---------- */
+.input-estoque {
+  width: 70px;
+  padding: 6px 8px;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  background: var(--creme);
+  color: var(--texto);
+  font: inherit;
+}
+
+/* ---------- Botões da coluna Ações (empilhados) ---------- */
+.acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.acoes button {
+  width: 76px;
+  padding: 3px 0;
+  font-size: 0.78rem;
+}
+
+.btn-remover {
+  background-color: #B22222;
+}
+
+.btn-restaurar {
+  background: var(--verde);
+}
+
+.btn-editar {
+  background: var(--marrom);
+}
+
+/* ---------- Botão fixo "Salvar Estoque" ---------- */
+#botao_salvar {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#botao_salvar button {
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: var(--marrom);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- Toast (acima do botão Salvar Estoque) ---------- */
+.toast {
+  position: fixed;
+  bottom: 146px;
+  right: 20px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+}
+
+.toast-sucesso { background: #4a8f5a; }
+.toast-erro { background: #b94a48; }
+.toast-info { background: #6b4a2f; }
